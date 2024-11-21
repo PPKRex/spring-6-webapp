@@ -4,18 +4,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import ppk.springframework.spring_6_wwbapp.domain.Author;
 import ppk.springframework.spring_6_wwbapp.domain.Book;
+import ppk.springframework.spring_6_wwbapp.domain.Publisher;
 import ppk.springframework.spring_6_wwbapp.repositories.AuthorRepository;
 import ppk.springframework.spring_6_wwbapp.repositories.BookRepository;
+import ppk.springframework.spring_6_wwbapp.repositories.PublisherRepository;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -48,9 +52,19 @@ public class BootstrapData implements CommandLineRunner {
         authorRepository.save(gerardSaved);
         authorRepository.save(ppkSaved);
 
+        Publisher publisher = new Publisher();
+        publisher.setName("123Books");
+        publisher.setAddress("C/ books");
+        publisher.setCity("City of words");
+        publisher.setState("State of Words");
+        publisher.setZip("Zipper");
+        publisherRepository.save(publisher);
+
+
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
+        System.out.println("Publisher Count: " + publisherRepository.count());
 
     }
 }
