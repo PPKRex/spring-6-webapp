@@ -2,6 +2,7 @@ package ppk.springframework.spring_6_wwbapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,14 +18,14 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> books;
+    private Set<Author> authors = new HashSet<>();
 
     public Set<Author> getBooks() {
-        return books;
+        return authors;
     }
 
     public void setBooks(Set<Author> books) {
-        this.books = books;
+        this.authors = books;
     }
 
     public Long getId() {
@@ -57,7 +58,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", books=" + books +
+                ", books=" + authors +
                 '}';
     }
 
